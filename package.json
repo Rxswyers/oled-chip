@@ -1,0 +1,27 @@
+{
+  "name": "oled-chip",
+  "version": "0.0.1",
+  "description": "SSD1306 Driver OLED with CHIP",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rxswyers/oled-chip.git"
+  },
+  "keywords": [
+    "CHIP",
+    "OLED",
+    "SSD1306"
+  ],
+  "author": "CyberRonin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Rxswyers/oled-chip/issues"
+  },
+  "homepage": "https://github.com/Rxswyers/oled-chip#readme",
+  "dependencies": {
+    "oled-font-5x7": "^1.0.0"
+  }
+}
