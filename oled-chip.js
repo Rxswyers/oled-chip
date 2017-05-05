@@ -78,25 +78,31 @@ class OC extends EventEmitter
   toggleDim()
   {
     let dim = this.dim;
+    let screen = this.screen;
     if(dim)
     {
       this.dim = false;
+      screen.dimDisplay(false);
     }
     else
     {
       this.dim = true;
+      screen.dimDisplay(true);
     }
   }
   toggleInvert()
   {
     let invert = this.invert;
+    let screen = this.screen;
     if(invert)
     {
       this.invert = false
+      screen.invertDisplay(false);
     }
     else
     {
       this.invert = true;
+      screen.invertDisplay(true);
     }
   }
   turnOff()
@@ -120,13 +126,12 @@ class OC extends EventEmitter
    * @param {Integer} points.y1 - Starting y coord.
    * @param {Integer} points.x2 - Finishing x coord.
    * @param {Integer} points.y2 - Finishing y coord.
-   * @param {Integer} [points.color = 1] - Color of the line, 1 for white, 0 for black.
+   * @param {Integer} points.color - Color of the line, 1 for white, 0 for black.
    */
   line(points)
   {
     let screen = this.screen;
-    let color = points.color || 1;
-    screen.drawLine(points.x1, points.y1, points.x2, points.y2, color);
+    screen.drawLine(points.x1, points.y1, points.x2, points.y2, points.color);
   }
   /**
    * @param {Object} rect - Object to hold top left point and bottom right point, color is optional.
@@ -134,13 +139,25 @@ class OC extends EventEmitter
    * @param {Integer} rect.y1 - Y coord for top left corner point.
    * @param {Integer} rect.x2 - X coord for bottom right corner point.
    * @param {Integer} rect.y2 - Y coord for bottom right corner point.
-   * @param {Integer} [rect.color = 1] - Color of the line, 1 for white, 0 for black.
+   * @param {Integer} rect.color - Color of the fill, 1 for white, 0 for black.
    */
   fillRect(rect)
   {
     let screen = this.screen;
-    let color = rect.color || 1;
-    screen.fillRect(rect.x1, rect.y1, rect.x2, rect.y2, color);
+    screen.fillRect(rect.x1, rect.y1, rect.x2, rect.y2, rect.color);
+  }
+  /**
+   * @param {Object} rect - Object to hold top left point and bottom right point, color is optional.
+   * @param {Integer} rect.x1 - X coord for top left corner point.
+   * @param {Integer} rect.y1 - Y coord for top left corner point.
+   * @param {Integer} rect.x2 - X coord for bottom right corner point.
+   * @param {Integer} rect.y2 - Y coord for bottom right corner point.
+   * @param {Integer} rect.color - Color of the line, 1 for white, 0 for black.
+   */
+  drawRect(rect)
+  {
+    let screen = this.screen;
+    screen.drawRect(rect.x1, rect.y1, rect.x2, rect.y2, rect.color);
   }
   update()
   {
