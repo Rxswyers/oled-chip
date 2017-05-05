@@ -1,4 +1,4 @@
-const oledChip = require('oled-chip.js');
+const oledChip = require('./oled-chip.js');
 const oc = new oledChip.OC({
   width: 128,
   height: 64,
@@ -7,5 +7,6 @@ const oc = new oledChip.OC({
 
 oc.on('ready', () =>
 {
+  oc.clear();
   oc.write(1, 'OLED class on CHIP?');
 });

@@ -33,6 +33,8 @@ class OC extends EventEmitter
       6: 45,
       7: 54
     };
+    this.dim = false;
+    this.invert = false;
     this.init.bind(this);
     this.init();
   }
@@ -55,6 +57,7 @@ class OC extends EventEmitter
     that.board.on('ready', () =>
     {
       that.screen = new OLED(that.board, five, oledOpts);
+      that.screen.update();
       that.emit('ready');
     });
   }
@@ -66,6 +69,82 @@ class OC extends EventEmitter
 
     screen.setCursor(1,lines[line]);
     screen.writeString(font, 1, str, 1, true, 2);
+  }
+  clear()
+  {
+    let screen = this.screen;
+    screen.clearDisplay();
+  }
+  toggleDim()
+  {
+    let dim = this.dim;
+    if(dim)
+    {
+      this.dim = false;
+    }
+    else
+    {
+      this.dim = true;
+    }
+  }
+  toggleInvert()
+  {
+    let invert = this.invert;
+    if(invert)
+    {
+      this.invert = false
+    }
+    else
+    {
+      this.invert = true;
+    }
+  }
+  turnOff()
+  {
+    this.screen.turnOffDisplay();
+  }
+  turnOn()
+  {
+    this.screen.turnOnDisplay();
+  }
+  /**
+   * @param {Array} p - Multi-dimensional array with one or more sets of pixels. [x,y,color]
+   */
+  drawPixel(p)
+  {
+    this.screen.drawPixel(p);
+  }
+  /**
+   * @param {Object} points - Points to start and end the line.
+   * @param {Integer} points.x1 - Starting x coord.
+   * @param {Integer} points.y1 - Starting y coord.
+   * @param {Integer} points.x2 - Finishing x coord.
+   * @param {Integer} points.y2 - Finishing y coord.
+   * @param {Integer} [points.color = 1] - Color of the line, 1 for white, 0 for black.
+   */
+  line(points)
+  {
+    let screen = this.screen;
+    let color = points.color || 1;
+    screen.drawLine(points.x1, points.y1, points.x2, points.y2, color);
+  }
+  /**
+   * @param {Object} rect - Object to hold top left point and bottom right point, color is optional.
+   * @param {Integer} rect.x1 - X coord for top left corner point.
+   * @param {Integer} rect.y1 - Y coord for top left corner point.
+   * @param {Integer} rect.x2 - X coord for bottom right corner point.
+   * @param {Integer} rect.y2 - Y coord for bottom right corner point.
+   * @param {Integer} [rect.color = 1] - Color of the line, 1 for white, 0 for black.
+   */
+  fillRect(rect)
+  {
+    let screen = this.screen;
+    let color = rect.color || 1;
+    screen.fillRect(rect.x1, rect.y1, rect.x2, rect.y2, color);
+  }
+  update()
+  {
+    this.screen.update();
   }
 }
 
